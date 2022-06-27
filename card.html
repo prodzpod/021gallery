@@ -1,0 +1,30 @@
+<html>
+    <script src="./js/util.js"></script>
+    <script src="./js/text.js"></script>
+    <svg viewBox="-1 -1 92 52" style="margin: 128px">
+        <path fill="black" d="m5 0a5 5 90 00-5 5l0 40a5 5 90 005 5l80 0a5 5 90 005-5l0-40a5 5 90 00-5-5"></path>
+        <path id="slogan1" stroke="white" style="transform: scale(0.3) translate(281px, 136px) rotate(-90deg);"></path>
+        <path id="logo1" stroke="white" style="transform: translate(5px, 5px);"></path>
+    </svg>
+    <svg viewBox="-1 -1 92 52" style="margin: 128px">
+        <path fill="black" d="m5 0a5 5 90 00-5 5l0 40a5 5 90 005 5l80 0a5 5 90 005-5l0-40a5 5 90 00-5-5"></path>
+        <path id="slogan2" stroke="white" style="transform: scale(0.3) translate(184px, 144px);"></path>
+        <path id="logo2" stroke="white" style="transform: translate(5px, 5px);"></path>
+    </svg>
+    <svg viewBox="-1 -1 92 52" style="margin: 128px">
+        <path fill="black" d="m5 0a5 5 90 00-5 5l0 40a5 5 90 005 5l80 0a5 5 90 005-5l0-40a5 5 90 00-5-5"></path>
+        <path id="logo3" stroke="white" style="transform: scale(0.5) translate(10px, 10px);"></path>
+        <path id="name3" stroke="white" style="transform: scale(0.5) translate(110px, 37px);"></path>
+        <path fill="#ffffff40" d="m5 45 80 0 0-40-40 0 0 20-40 0"></path>
+    </svg>
+    <svg viewBox="-1 -1 78 79">
+        <path id="gen1" fill="transparent" stroke="black"></path>
+        <path id="gen2" fill="transparent" stroke="black" style="transform: translate(0, 13px);"></path>
+        <path id="gen3" fill="transparent" stroke="black" style="transform: translate(0, 26px);"></path>
+        <path id="gen4" fill="transparent" stroke="black" style="transform: translate(0, 39px);"></path>
+        <path id="gen5" fill="transparent" stroke="black" style="transform: translate(0, 52px);"></path>
+        <path id="gen6" fill="transparent" stroke="black" style="transform: translate(0, 65px);"></path>
+    </svg>
+    <input id="in" autofocus onkeydown="checkEnter(event, drawText, 'gen6', this.value)" style="width: calc(100% - 72px);" placeholder="type...">
+    <button onclick="drawText('gen6', e('in').value)">print</button>
+</html>

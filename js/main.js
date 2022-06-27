@@ -7,6 +7,13 @@ let combo = 0;
 
 let busy = false;
 
+const deviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return "tablet";
+    else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) return "mobile";
+    return "desktop";
+};
+
 window.onload = function(event) {
     let i = 0;
     let inner = e('main').firstElementChild;
@@ -31,18 +38,19 @@ window.onload = function(event) {
     npage = i;
     nsubpage = 2;
     onScrolled();
-
-    e('main').onscroll = function() {
-        if (!busy) {
-            page = e('main').scrollLeft / document.documentElement.clientWidth;
-            onScrolled();
+    if (deviceType() === "mobile") {
+        e('main').onscroll = function() {
+            if (!busy) {
+                page = e('main').scrollLeft / document.documentElement.clientWidth;
+                onScrolled();
+            }
         }
-    }
-    
-    e('sub').onscroll = function() {
-        if (!busy) {
-            subpage = e('sub').scrollLeft / document.documentElement.clientWidth;
-            onScrolled();
+        
+        e('sub').onscroll = function() {
+            if (!busy) {
+                subpage = e('sub').scrollLeft / document.documentElement.clientWidth;
+                onScrolled();
+            }
         }
     }
 }
@@ -55,7 +63,8 @@ window.onwheel = function(event) {
     } else combo = 0;
     if (selected !== -1) {
         subpage += amount;
-        subpage = clamp(0, subpage, nsubpage + 1);
+        subpage = clamp(0, subpage, nsubpage);
+        if (combo === -0.05) subpage = 0.95;
     }
     else {
         page += amount;
@@ -65,18 +74,20 @@ window.onwheel = function(event) {
 }
 
 function onScrolled() {
-    if (selected !== -1 && (subpage < 1 || subpage > (nsubpage + 0.5))) {
+    if (selected !== -1 && subpage < 1) {
         selected = -1;
-        page += (subpage < 1 ? subpage - 1 : subpage - (nsubpage + 0.5));
+        page += subpage - 1;
         subpage = 1;
         e('page-wrapper').style.marginTop = 0;
         e('page-bg').style.opacity = 1;
         busy = true;
         setTimeout(() => { busy = false; }, 500);
     }
-    e('main').scrollLeft = document.documentElement.clientWidth * page;
-    e('page-bg').style.marginLeft = -document.documentElement.clientWidth * (page + subpage - 1);
-    e('sub').scrollLeft = document.documentElement.clientWidth * subpage;
+    let vpage = Math.trunc(page) + ((page % 1) * (page % 1));
+    let vsubpage = Math.trunc(subpage) + ((subpage % 1) * (subpage % 1));
+    e('main').scrollLeft = document.documentElement.clientWidth * vpage;
+    e('page-bg').style.marginLeft = -document.documentElement.clientWidth * (vpage + vsubpage - 1);
+    e('sub').scrollLeft = document.documentElement.clientWidth * vsubpage;
 }
 
 function onClick(page) {
@@ -93,6 +104,6 @@ function onClick(page) {
 function loadSubpages(page) {
     cleanElement(e('sub').firstElementChild);
     let target = e('main-' + page).getElementsByClassName('subpages')[0];
-    e('sub').firstElementChild.innerHTML = '<div class="block"></div>' + target.innerHTML + '<div class="block"></div>';
+    e('sub').firstElementChild.innerHTML = '<div class="block"></div>' + target.innerHTML;
     nsubpage = target.getElementsByClassName('block').length;
 }

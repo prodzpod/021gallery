@@ -1,6 +1,6 @@
 const CONTENT = [
     {"content": `
-        <svg id="logo" viewBox="-9 -5 17.5 10"><path d="M-4-3-4 3A1 1 0 01-5 4L-7 4A1 1 0 01-8 3L-8-3A1 1 0 01-7-4L-5-4A1 1 0 01-4-3M2 3 2 4-2 4-2 3 2-2 2-3A1 1 0 001-4L-1-4A1 1 0 00-2-3L-2-2M4-4 5.5-4 5.5 4 6 4" stroke="white"></path></svg>
+        <svg id="logo" viewBox="-9 -5 18 10"><path d="m-4-3 0 6a1 1 0 01-1 1l-2 0a1 1 0 01-1-1l0-6a1 1 0 011-1l2 0a1 1 0 011 1m6 6 0 1-4 0 0-1 4-5 0-1a1 1 0 00-1-1l-2 0a1 1 0 00-1 1l0 1m6-2 1.5 0 0 8 .5 0" stroke="white"></path></svg>
         <p style="color: white;">“갤러리는 어떠해야 할까?”</p>
     `, "subpages": [`
         <div class="hlist">

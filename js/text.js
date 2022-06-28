@@ -465,9 +465,13 @@ function getD(t) {
 
 window.onload = function() {
     drawText('logo1', '021');
-    drawText('logo3', '021gallery');
-    drawText('slogan1', 'How should a gallery be?');
-    drawText('name3', 'Gyu Hyun Lee');
+    drawText('logo2', '021');
+    drawText('logo3', '021');
+    drawText('logo4', '021');
+    drawText('logob1', '021gallery');
+    drawText('logob2', '021gallery');
+    drawText('logob3', '021gallery');
+    drawText('logob4', '021gallery');
     drawText('gen1', 'ABCDEFGHIJKLM');
     drawText('gen2', 'NOPQRSTUVWXYZ');
     drawText('gen3', 'abcdefghijklm');

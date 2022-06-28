@@ -14,6 +14,8 @@ const deviceType = () => {
     return "desktop";
 };
 
+let timeout;
+
 window.onload = function(event) {
     let i = 0;
     let inner = e('main').firstElementChild;
@@ -42,14 +44,19 @@ window.onload = function(event) {
         e('main').onscroll = function() {
             if (!busy) {
                 page = e('main').scrollLeft / document.documentElement.clientWidth;
-                onScrolled();
+                e('page-bg').style.marginLeft = -document.documentElement.clientWidth * (page + subpage - 1);
+                clearTimeout(timeout);
+                timeout = setTimeout(() => { onScrolled() }, 500);
             }
         }
         
         e('sub').onscroll = function() {
             if (!busy) {
                 subpage = e('sub').scrollLeft / document.documentElement.clientWidth;
-                onScrolled();
+                subpage = clamp(0, subpage, nsubpage);
+                e('page-bg').style.marginLeft = -document.documentElement.clientWidth * (page + subpage - 1);
+                clearTimeout(timeout);
+                timeout = setTimeout(() => { onScrolled() }, 50);
             }
         }
     }
@@ -63,28 +70,30 @@ window.onwheel = function(event) {
     } else combo = 0;
     if (selected !== -1) {
         subpage += amount;
-        subpage = clamp(0, subpage, nsubpage);
         if (combo === -0.05) subpage = 0.95;
     }
     else {
         page += amount;
-        page = clamp(0, page, npage - 1);
     }
     onScrolled();
 }
 
 function onScrolled() {
+    page = clamp(0, page, npage - 1);
+    subpage = clamp(0, subpage, nsubpage);
     if (selected !== -1 && subpage < 1) {
         selected = -1;
         page += subpage - 1;
         subpage = 1;
+        page = clamp(0, page, npage - 1);
+        subpage = clamp(0, subpage, nsubpage);
         e('page-wrapper').style.marginTop = 0;
         e('page-bg').style.opacity = 1;
         busy = true;
         setTimeout(() => { busy = false; }, 500);
     }
-    let vpage = Math.trunc(page) + ((page % 1) * (page % 1));
-    let vsubpage = Math.trunc(subpage) + ((subpage % 1) * (subpage % 1));
+    let vpage = deviceType() === "mobile" ? page : (Math.trunc(page) + ((page % 1) * (page % 1)));
+    let vsubpage = deviceType() === "mobile" ? subpage : (Math.trunc(subpage) + ((subpage % 1) * (subpage % 1)));
     e('main').scrollLeft = document.documentElement.clientWidth * vpage;
     e('page-bg').style.marginLeft = -document.documentElement.clientWidth * (vpage + vsubpage - 1);
     e('sub').scrollLeft = document.documentElement.clientWidth * vsubpage;

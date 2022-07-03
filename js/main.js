@@ -54,11 +54,11 @@ function handleTouchMove(evt) {
 
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
     /*most significant*/
-    if (xDiff > 0) movePage(-1);
-    else movePage(1);
+    if (xDiff > 0) movePage(1);
+    else movePage(-1);
   } else {
-    if (yDiff > 0) exitPage();
-    else enterPage();
+    if (yDiff > 0) enterPage();
+    else exitPage();
   }
   /* reset values */
   xDown = null;
